@@ -1,0 +1,49 @@
+CREATE TABLE Prizes (
+    id int NOT NULL PRIMARY KEY,
+    PlaceNumber int NOT NULL,
+	PlaceName nvarchar(50) NOT  NULL,
+	PrizeAmount money NOT NULL,
+	PrizePercentage float NOT NULL
+);
+
+
+----------------------------------------------
+-- ================================================
+-- Template generated from Template Explorer using:
+-- Create Procedure (New Menu).SQL
+--
+-- Use the Specify Values for Template Parameters 
+-- command (Ctrl-Shift-M) to fill in the parameter 
+-- values below.
+--
+-- This block of comments will not be included in
+-- the definition of the procedure.
+-- ================================================
+USE [Tournaments]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+-- Gets the current teams for a given tournament
+ALTER PROCEDURE [dbo].[spTeam_GetByTournament]
+	@TournamentId int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	select t.*
+	from dbo.Teams t
+	inner join dbo.TournamentEntries e on t.id = e.TeamId
+	where e.TournamentId = @TournamentId;
+END
+GO
